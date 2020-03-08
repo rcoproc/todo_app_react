@@ -2,7 +2,7 @@
 
 [Baseado no curso da Udemy](https://www.udemy.com/course/ruby-on-rails-react-angular/)
 
-![Exemplo do App]()
+![Exemplo do App](https://github.com/rcoproc/todo_app_react/blob/master/api/public/capa_React_app.png)
 
 
 ## Instruções para uso:
