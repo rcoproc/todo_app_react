@@ -27,7 +27,7 @@ var Todo = function (_React$Component) {
   }
 
   _createClass(Todo, [{
-    key: "handleClick",
+    key: 'handleClick',
     value: function handleClick(event) {
       this.setState(function (state) {
         return {
@@ -38,7 +38,7 @@ var Todo = function (_React$Component) {
       });
     }
   }, {
-    key: "handleChange",
+    key: 'handleChange',
     value: function handleChange(event) {
       var text = event.target.value;
 
@@ -49,27 +49,55 @@ var Todo = function (_React$Component) {
       });
     }
   }, {
-    key: "handleSubmit",
+    key: 'handleSubmit',
     value: function handleSubmit(event) {
-      console.log("This is where the submit will happen!");
+      var _this2 = this;
+
+      var id = this.props.id || this.state._id;
+
+      if (id == "" || id == undefined) {
+        fetch('/todos', {
+          method: 'post',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            done: this.state.done,
+            text: this.state.text
+          })
+        }).then(function (response) {
+          return response.json();
+        }).then(function (data) {
+          return _this2.setState(function (state) {
+            return { _id: data._id };
+          });
+        });
+      } else {
+        fetch('/todos/' + id, {
+          method: 'put',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            done: this.state.done,
+            text: this.state.text
+          })
+        });
+      }
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
 
       return React.createElement(
-        "div",
-        { className: "todo" },
+        'div',
+        { className: 'todo' },
         React.createElement(
-          "span",
+          'span',
           null,
-          React.createElement("input", { type: "checkbox", checked: this.state.done,
+          React.createElement('input', { type: 'checkbox', checked: this.state.done,
             onClick: this.handleClick }),
-          React.createElement("input", _defineProperty({ type: "text", value: this.state.text,
+          React.createElement('input', _defineProperty({ type: 'text', value: this.state.text, size: 30,
             className: this.state.done ? 'done' : 'not-done',
             onChange: this.handleChange,
             onBlur: this.handleSubmit
-          }, "value", this.state.text))
+          }, 'value', this.state.text))
         )
       );
     }
@@ -84,24 +112,24 @@ var TodoList = function (_React$Component2) {
   function TodoList(props) {
     _classCallCheck(this, TodoList);
 
-    var _this2 = _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (TodoList.__proto__ || Object.getPrototypeOf(TodoList)).call(this, props));
 
-    _this2.state = { todos: [] };
+    _this3.state = { todos: [] };
 
-    _this2.newTodo = _this2.newTodo.bind(_this2);
+    _this3.newTodo = _this3.newTodo.bind(_this3);
 
-    return _this2;
+    return _this3;
   }
 
   _createClass(TodoList, [{
-    key: "componentDidMount",
+    key: 'componentDidMount',
     value: function componentDidMount() {
-      var _this3 = this;
+      var _this4 = this;
 
-      fetch('http://localhost:3000/todos/').then(function (response) {
+      fetch('/todos/').then(function (response) {
         return response.json();
       }).then(function (data) {
-        _this3.setState(function (state) {
+        _this4.setState(function (state) {
           return {
             todos: data.todos
           };
@@ -109,7 +137,7 @@ var TodoList = function (_React$Component2) {
       });
     }
   }, {
-    key: "newTodo",
+    key: 'newTodo',
     value: function newTodo(event) {
       event.preventDefault();
 
@@ -123,7 +151,7 @@ var TodoList = function (_React$Component2) {
       });
     }
   }, {
-    key: "render",
+    key: 'render',
     value: function render() {
       var todoList = this.state.todos.map(function (todo) {
         return React.createElement(Todo, { id: todo._id, key: todo._id.toString(), text: todo.text, done: todo.done });
@@ -133,15 +161,15 @@ var TodoList = function (_React$Component2) {
         React.Fragment,
         null,
         React.createElement(
-          "h1",
+          'h1',
           null,
-          "React Todo App"
+          'React Todo App with Mongo DB'
         ),
         todoList,
         React.createElement(
-          "a",
-          { href: "#", onClick: this.newTodo },
-          "New Todo"
+          'a',
+          { href: '#', onClick: this.newTodo },
+          'New Todo'
         )
       );
     }

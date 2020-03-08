@@ -13,9 +13,11 @@ app.use(function(req, res, next){
   next();
 })
  
-router.get('/', (req, res) => res.send('Hello World!'));
+app.use(express.static('public'));
 
 app.use(bodyParser.json());
+
+router.get('/', (req, res) => res.send('Hello World!'));
 
 router.route('/todos')
   .get((req,res) =>{

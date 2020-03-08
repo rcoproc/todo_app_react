@@ -30,7 +30,29 @@ class Todo extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log("This is where the submit will happen!")
+    let id = this.props.id || this.state._id;
+
+    if (id == "" || id == undefined) {
+      fetch('http://localhost:3000/todos', {
+        method: 'post', 
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          done: this.state.done,
+          text: this.state.text
+        })
+      }).then(response => response.json())
+      .then(data => this.setState( state => ({ _id: data._id })))
+    } else {
+      fetch(`http://localhost:3000/todos/${id}`, {
+        method: 'put',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          done: this.state.done,
+          text: this.state.text
+        })
+      })
+    }
+
   }
 
   render() {
