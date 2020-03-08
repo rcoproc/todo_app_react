@@ -1,17 +1,21 @@
-# React TODO App with Mongo DB
+# React TODO App with Mongo DB and API with Express server
 
-[Baseado no curso da Udemy](https://www.udemy.com/course/ruby-on-rails-react-angular/)
+[Based on Udemy course](https://www.udemy.com/course/ruby-on-rails-react-angular/)
 
-![Exemplo do App](https://github.com/rcoproc/todo_app_react/blob/master/api/public/capa_React_app.png)
+![App Example](https://github.com/rcoproc/todo_app_react/blob/master/api/public/capa_React_app.png)
+
+## Installing mongodb 
+
+  https://docs.mongodb.com/manual/administration/install-community/
 
 
-## Instruções para uso:
+## Instructions for use:
 
     cd api/
     npm install
-    npm start               # Roda o express na porta 3000 com as apis
+    npm start               # run express server on 3000 port
 
 
-## Fazendo o trinspile com o babel para o APP.js    
+## Making the transpile with babel to app.js
     cd app
     npx babel --watch src --out-dir . --presets react-app/prod
